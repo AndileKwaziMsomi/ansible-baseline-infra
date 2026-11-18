@@ -1,10 +1,56 @@
 #  Ansible Baseline Infrastructure
 
-Automated baseline configuration and server hardening playbooks. This repository provides reusable Ansible roles and playbooks to provision, configure, and secure infrastructure environments consistently.
+Automated baseline configuration and server hardening playbooks. Designed to provision, configure, and secure Linux infrastructure environments consistently across servers.
 
 ---
 
-## 📂 Project Structure
+##  Tech Stack
+
+- **Automation:** Ansible
+- **Target OS:** Linux (Ubuntu / Debian / RHEL)
+- **Configuration:** YAML, Jinja2 Templates
+- **Transport:** OpenSSH
+
+---
+
+##  Prerequisites
+
+Ensure you have the following installed on your control node:
+- Ansible (2.10+)
+- Python 3.x
+- Git
+- SSH key-based access to target nodes
+
+---
+
+##  Getting Started
+
+1. **Clone the repository:**
+   ```bash
+   git clone [https://github.com/AndileKwaziMsomi/ansible-baseline-infra.git](https://github.com/AndileKwaziMsomi/ansible-baseline-infra.git)
+   cd ansible-baseline-infra
+   ```
+
+2. **Configure your inventory:**
+   Add your target server IPs or hostnames to `inventory/hosts.ini`:
+   ```ini
+   [servers]
+   your_server_ip ansible_user=your_user
+   ```
+
+3. **Test connectivity:**
+   ```bash
+   ansible all -i inventory/hosts.ini -m ping
+   ```
+
+4. **Run the baseline playbook:**
+   ```bash
+   ansible-playbook -i inventory/hosts.ini playbooks/site.yml
+   ```
+
+---
+
+##  Project Structure
 
 ```text
 ansible-baseline-infra/
@@ -20,28 +66,19 @@ ansible-baseline-infra/
 │   └── group_vars/       # Group-specific variables
 ├── ansible.cfg           # Global Ansible configuration
 └── README.md
+```
 
-Prerequisites
-Ensure you have the following installed on your control node:
+---
 
-Ansible (2.10+)
+##  Baseline Configurations
 
-Python 3.x
+- **SSH Hardening:** Disables root login and enforces key-based authentication.
+- **Firewall Management:** Configures default inbound/outbound rules.
+- **System Updates & Packages:** Installs core utilities and applies baseline security patches.
+- **User Provisioning:** Sets up standardized administrative users and sudo privileges.
 
-SSHpass (if authenticating via password, though SSH keys are recommended)
-git clone [https://github.com/AndileKwaziMsomi/ansible-baseline-infra.git](https://github.com/AndileKwaziMsomi/ansible-baseline-infra.git)
-cd ansible-baseline-infra
+---
 
-ansible-playbook -i inventory/hosts.ini playbooks/site.yml
-Test connectivity (Ping):
-ansible all -i inventory/hosts.ini -m ping
+##  License
 
-Baseline Configurations Included
-SSH Hardening: Disables root login and password authentication (enforces key-based auth).
-
-Firewall Management: Configures default firewall rules (e.g., UFW/Firewalld).
-
-Package Management: Ensures essential system utilities and security updates are applied.
-
-User Management: Provisions standardized system users and administrative boundaries.
-<FollowUp label="Want me to customize any specific roles, variables, or playbook tasks for this README?" query="Yes, customize the README to include specific roles or variables for my ansible-baseline-infra project."/>
+Distributed under the MIT License. See `LICENSE` for more information.
